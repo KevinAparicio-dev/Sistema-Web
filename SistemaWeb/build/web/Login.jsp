@@ -25,7 +25,7 @@
         <%--Forma legible--%>
         <%-- Crear objeto de la clase Date y formatear la fecha --%>
         <c:set var="fechaActual" value="<%= new java.util.Date() %>" />
-        <c:set var="formatoFecha" value="dd/MM/YYYY" />         
+        <c:set var="formatoFecha" value="dd/MM/YYYY" />  
         <%-- Imprimir fecha --%>            
         <div><label><strong>
             <c:out value="Fecha actual: "/>
