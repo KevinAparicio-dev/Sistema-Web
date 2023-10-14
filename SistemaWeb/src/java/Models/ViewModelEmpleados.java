@@ -11,19 +11,19 @@ import java.util.Date;
  * @author ernes
  */
 public class ViewModelEmpleados {
-
-     //Atributos
+     
+    //Atributos
     private int ID_Empleado;
     private String DUI_Empleado;
     private int ISSS_Empleado;
-    private String NombresEmpleado;
-    private String ApellidosEmpleados;
-    private Date FechaNacEmpleado;
-    private String Telefono;
-    private String Correo;
+    private String nombresEmpleado;
+    private String apellidosEmpleados;
+    private Date fechaNacEmpleado;
+    private String telefono;
+    private String correo;
     private int ID_Cargo;
     private int ID_Direccion;
-    
+
     public int getID_Empleado() {
         return ID_Empleado;
     }
@@ -46,38 +46,38 @@ public class ViewModelEmpleados {
     }
 
     public String getNombresEmpleado() {
-        return NombresEmpleado;
+        return nombresEmpleado;
     }
-    public void setNombresEmpleado(String NombresEmpleado) {
-        this.NombresEmpleado = NombresEmpleado;
+    public void setNombresEmpleado(String nombresEmpleado) {
+        this.nombresEmpleado = nombresEmpleado;
     }
-    
+
     public String getApellidosEmpleados() {
-        return ApellidosEmpleados;
+        return apellidosEmpleados;
     }
-    public void setApellidosEmpleados(String ApellidosEmpleados) {
-        this.ApellidosEmpleados = ApellidosEmpleados;
+    public void setApellidosEmpleados(String apellidosEmpleados) {
+        this.apellidosEmpleados = apellidosEmpleados;
     }
 
     public Date getFechaNacEmpleado() {
-        return FechaNacEmpleado;
+        return fechaNacEmpleado;
     }
-    public void setFechaNacEmpleado(Date FechaNacEmpleado) {
-        this.FechaNacEmpleado = FechaNacEmpleado;
+    public void setFechaNacEmpleado(Date fechaNacEmpleado) {
+        this.fechaNacEmpleado = fechaNacEmpleado;
     }
 
     public String getTelefono() {
-        return Telefono;
+        return telefono;
     }
-    public void setTelefono(String Telefono) {
-        this.Telefono = Telefono;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getCorreo() {
-        return Correo;
+        return correo;
     }
-    public void setCorreo(String Correo) {
-        this.Correo = Correo;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public int getID_Cargo() {
@@ -93,5 +93,5 @@ public class ViewModelEmpleados {
     public void setID_Direccion(int ID_Direccion) {
         this.ID_Direccion = ID_Direccion;
     }
-   
+    
 }
