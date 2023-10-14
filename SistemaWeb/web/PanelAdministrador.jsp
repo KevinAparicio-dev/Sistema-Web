@@ -73,8 +73,6 @@
     <!--Bienvenida-->
     <c:set var="usuario" value="${param.tfUsuario}"/>
     <div><h2><strong>Bienvenido, <c:out value="${usuario}"/>!</strong></h2></div>
-    
-    
     <h3>Menú de opciones</h3>
     <div class="menu">
         <%@include file="MenuAdministrador.jsp" %>
