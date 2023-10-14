@@ -71,7 +71,7 @@
         <h2><strong>Bienvenido, <%= usuario %></strong></h2>
         <h3>Menú de opciones</h3>
         <div class="menu">
-            <%@include file="PanelBodeguero.jsp" %>
+            <%@include file="MenuBodeguero.jsp" %>
         </div>
         <div>
             <%@include file="Footer.html" %>

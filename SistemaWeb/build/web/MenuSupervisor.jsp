@@ -1,7 +1,7 @@
 <%-- 
-    Document   : MenuGerente
-    Created on : 13 oct 2023, 22:14:11
-    Author     : Kevin Aparicio
+    Document   : MenuSupervisor
+    Created on : 13 oct 2023, 23:05:02
+    Author     : ernes
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Menu Gerente</title>
+        <title>Menu Supervisor</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
               integrity="sha384-7O3s6ZZlS9l+o9NUkyyz/B3zqvP/kC3TRamL1fjLVSARbIqW/Jfc4m/tz16F9KuD" crossorigin="anonymous">
         <style>
@@ -102,12 +102,6 @@
                     <a class="btn-blue" href="/SistemaWeb?accion=Login">
                         <i class="fas fa-sign-in-alt"></i>
                         <span class="btn-text">Cerrar Sesion</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="btn-purple" href="/SistemaWeb?accion=GestionEmpleados">
-                        <i class="fas fa-user-tie"></i>
-                        <span class="btn-text">Gestión Empleados</span>
                     </a>
                 </li>
                 <li>
