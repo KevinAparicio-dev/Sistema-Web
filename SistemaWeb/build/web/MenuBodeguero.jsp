@@ -93,6 +93,18 @@
         <div class="menu_principal">
             <ul>
                 <li>
+                    <a class="btn-green" href="/SistemaWeb">
+                        <i class="fas fa-home"></i>
+                        <span class="btn-text">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn-blue" href="/SistemaWeb?accion=Login">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span class="btn-text">Cerrar Sesion</span>
+                    </a>
+                </li>
+                <li>
                     <a class="btn-yellow" href="/SistemaWeb?accion=PedidosProductos">
                        <i class="fas fa-truck"></i>
                        <span class="btn-text">Pedidos</span>
