@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -67,8 +69,9 @@
     </head>
     <body>
         <h1>Supermercado 1.0</h1>
-        <%  String usuario = request.getParameter("tfUsuario"); %>
-        <h2><strong>Bienvenido, <%= usuario %></strong></h2>
+    <!--Bienvenida Cajero-->
+    <c:set var="usuario" value="${param.tfUsuario}"/>
+    <div><h2><strong>Bienvenido, <c:out value="${usuario}"/>!</strong></h2></div>
         <h3>Menú de opciones</h3>
         <div class="menu">
             <%@include file="MenuCajero.jsp" %>

@@ -69,7 +69,7 @@
     </head>
     <body>
         <h1>Supermercado 1.0</h1>
-    <!--Bienvenida-->
+    <!--Bienvenida Bodeguero-->
     <c:set var="usuario" value="${param.tfUsuario}"/>
     <div><h2><strong>Bienvenido, <c:out value="${usuario}"/>!</strong></h2></div>
         <h3>Menú de opciones</h3>
