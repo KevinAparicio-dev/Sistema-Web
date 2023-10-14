@@ -23,7 +23,7 @@ import java.io.PrintWriter;
 
 public class ServletPrincipal extends HttpServlet {
 
-    private final String usuario="sysadmin_login";
+    private final String usuario="sa";
     private final String contrasenia = "root";
     private final String servidor = "localhost:1433";
     private final String bd = "Supermercado";
