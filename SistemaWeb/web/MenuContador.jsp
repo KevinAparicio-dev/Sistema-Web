@@ -1,7 +1,7 @@
 <%-- 
-    Document   : MenuGerente
-    Created on : 13 oct 2023, 22:14:11
-    Author     : Kevin Aparicio
+    Document   : MenuContador
+    Created on : 13 oct 2023, 23:12:16
+    Author     : ernes
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Menu Gerente</title>
+        <title>Menu Supervisor</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
               integrity="sha384-7O3s6ZZlS9l+o9NUkyyz/B3zqvP/kC3TRamL1fjLVSARbIqW/Jfc4m/tz16F9KuD" crossorigin="anonymous">
         <style>
@@ -105,12 +105,6 @@
                     </a>
                 </li>
                 <li>
-                    <a class="btn-purple" href="/SistemaWeb?accion=GestionEmpleados">
-                        <i class="fas fa-user-tie"></i>
-                        <span class="btn-text">Gestión Empleados</span>
-                    </a>
-                </li>
-                <li>
                     <a class="btn-red" href="/SistemaWeb?accion=GestionProductos">
                         <i class="fas fa-cogs"></i>
                         <span class="btn-text">Gestión Productos</span>
@@ -120,6 +114,12 @@
                     <a class="btn-gray" href="/SistemaWeb?accion=Ventas">
                         <i class="fas fa-dollar-sign"></i>
                         <span class="btn-text">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn-yellow" href="/SistemaWeb?accion=PedidosProductos">
+                        <i class="fas fa-truck"></i>
+                        <span class="btn-text">Pedidos</span>
                     </a>
                 </li>
             </ul>
