@@ -115,7 +115,8 @@ public void mostrarEmpleados(HttpServletRequest request, HttpServletResponse res
            request.getRequestDispatcher("/Login.jsp").forward(request, response);
        }else if(accion.equals("RegistroEmpleados")){
            request.getRequestDispatcher("/RegistroEmpleados.jsp").forward(request, response);
-           }else if(accion.equals("GestionEmpleados")){
+       }else if(accion.equals("GestionEmpleados")){
+           mostrarEmpleados(request,response);
            request.getRequestDispatcher("/GestionEmpleados.jsp").forward(request, response);
        }else if(accion.equals("RegistroProductos")){
            request.getRequestDispatcher("/RegistroProductos.jsp").forward(request, response);
