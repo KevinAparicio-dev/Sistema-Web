@@ -20,12 +20,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-/**
- *
- * @author ernes
- */
+
 public class ServletPrincipal extends HttpServlet {
 
+    private final String usuario="sysadmin_login";
+    private final String contrasenia = "root";
+    private final String servidor = "localhost:1433";
+    private final String bd = "Supermercado";
+    
+    String url = "jdbc:sqlserver://"
+           + servidor
+           + ";databaseName=" + bd
+           + ";use=" + usuario
+           + ";password=" + contrasenia
+           + ";encrypt=false;trustServerCertidicate=false;";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
