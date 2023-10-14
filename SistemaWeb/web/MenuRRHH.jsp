@@ -1,7 +1,7 @@
 <%-- 
-    Document   : MenuGerente
-    Created on : 13 oct 2023, 22:14:11
-    Author     : Kevin Aparicio
+    Document   : MenuRRHH
+    Created on : 13 oct 2023, 23:08:34
+    Author     : ernes
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Menu Gerente</title>
+        <title>Menu RRHH</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
               integrity="sha384-7O3s6ZZlS9l+o9NUkyyz/B3zqvP/kC3TRamL1fjLVSARbIqW/Jfc4m/tz16F9KuD" crossorigin="anonymous">
         <style>
@@ -110,20 +110,9 @@
                         <span class="btn-text">Gestión Empleados</span>
                     </a>
                 </li>
-                <li>
-                    <a class="btn-red" href="/SistemaWeb?accion=GestionProductos">
-                        <i class="fas fa-cogs"></i>
-                        <span class="btn-text">Gestión Productos</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="btn-gray" href="/SistemaWeb?accion=Ventas">
-                        <i class="fas fa-dollar-sign"></i>
-                        <span class="btn-text">Ventas</span>
-                    </a>
-                </li>
             </ul>
         </div>
         <script src="https://kit.fontawesome.com/d172c4fb2e.js" crossorigin="anonymous"></script>
     </body>
 </html>
+
