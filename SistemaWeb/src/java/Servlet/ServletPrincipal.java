@@ -59,6 +59,40 @@ public class ServletPrincipal extends HttpServlet {
             out.println("</html>");
         }
     }
+    
+public void mostrarEmpleados(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            try(Connection conn = DriverManager.getConnection(url)){
+            //try (Connection conn = DriverManager.getConnection(url);) {
+                request.setAttribute("mensaje_conexion", "Ok!");
+                String sqlQuery = "select * from Empleados";
+                PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
+                ResultSet rs = pstmt.executeQuery();
+                ArrayList<ViewModelEmpleados> listaEmpleados = new ArrayList<>();
+                while (rs.next()) {
+                    ViewModelEmpleados empleado = new ViewModelEmpleados();
+                    empleado.setID_Empleado(rs.getInt("ID_Empleado"));
+                    empleado.setDUI_Empleado(rs.getString("DUI_Empleado"));
+                    empleado.setISSS_Empleado(rs.getInt("ISSS_Empleado"));
+                    empleado.setNombresEmpleado(rs.getString("nombresEmpleado"));
+                    empleado.setApellidosEmpleados(rs.getString("apellidosEmpleado"));
+                    empleado.setFechaNacEmpleado(rs.getDate("fechaNacEmpleado"));
+                    empleado.setTelefono(rs.getString("telefono"));
+                    empleado.setCorreo(rs.getString("correo"));
+                    empleado.setID_Cargo(rs.getInt("ID_Cargo"));
+                    empleado.setID_Direccion(rs.getInt("ID_Direccion"));
+                    listaEmpleados.add(empleado);
+                }               
+                request.setAttribute("listaEmpleados", listaEmpleados);
+
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            request.setAttribute("mensaje_conexion", ex.getMessage());
+            ex.printStackTrace();
+}
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
