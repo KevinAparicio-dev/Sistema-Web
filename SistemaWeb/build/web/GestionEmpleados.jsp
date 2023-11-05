@@ -20,17 +20,10 @@
         <h2>Listado de Empleados</h2>
         <h3>Conexion: ${mensaje_conexion}</h3>
 
-        <!-- Botones de acción -->
-        <button onclick="mostrarAgregar()">Agregar Empleado</button>
-        <button onclick="mostrarListado()">Listado de Empleados</button>
-
-        <!-- Formulario para agregar empleado -->
-        <div id="formAgregar" style="display:none;">
-            <h2>Agregar Empleado</h2>
-        </div>
+        <!-- AÑADIR OPCION DE NUEVO REGISTRO -->
+        <a href="/SistemaWeb?accion=RegistrarEmpleado">Agregar empleado</a><br><br>
 
         <!-- Listado de empleados -->
-        <div id="listadoEmpleados" style="display:none;">
             <h2>Listado de Empleados</h2>
 
         <h1>Conexion: ${mensaje_conexion}</h1>
@@ -48,6 +41,9 @@
                     <th>Correo</th>
                     <th>ID_Cargo</th>
                     <th>ID_Direccion</th>
+                     <!-- AÑADIR COLUMNA DE ACCIONES-->
+                    <th>Acciones</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -63,31 +59,40 @@
                         <td><c:out value="${item.correo}" /></td>                        
                         <td><c:out value="${item.ID_Cargo}" /></td>
                         <td><c:out value="${item.ID_Direccion}" /></td>
-                    </tr>
+                        <!-- AÑADIR OPCIONES DE MODIFICACION Y ELIMINACION -->
+                        <td>
+                            <form method="POST" action="/SistemaWeb/ModificarEmpleado.jsp">
+                                <input type="hidden" name="ID_Empleado" value="${item.ID_Empleado}" />
+                                <input type="hidden" name="DUI_Empleado" value="${item.DUI_Empleado}" />
+                                <input type="hidden" name="ISSS_Empleado" value="${item.ISSS_Empleado}" />
+                                <input type="hidden" name="nombresEmpleado" value="${item.nombresEmpleado}" />
+                                <input type="hidden" name="apellidosEmpleado" value="${item.apellidosEmpleado}" />
+                                <input type="hidden" name="fechaNacEmpleado" value="${item.fechaNacEmpleado}" />
+                                <input type="hidden" name="telefonoEmpleado" value="${item.telefono}" />
+                                <input type="hidden" name="correo" value="${item.correo}" />
+                                <input type="hidden" name="ID_Cargo" value="${item.ID_Cargo}" />
+                                <input type="hidden" name="ID_Direccion" value="${item.ID_Direccion}" />
+                                <input type="submit" value="Modificar" />
+                            </form>    
+                            <form method="POST" action="/SistemaWeb/EliminarEmpleado.jsp">
+                                <input type="hidden" name="ID_Empleado" value="${item.ID_Empleado}" />
+                                <input type="hidden" name="DUI_Empleado" value="${item.DUI_Empleado}" />
+                                <input type="hidden" name="ISSS_Empleado" value="${item.ISSS_Empleado}" />
+                                <input type="hidden" name="nombresEmpleado" value="${item.nombresEmpleado}" />
+                                <input type="hidden" name="apellidosEmpleado" value="${item.apellidosEmpleado}" />
+                                <input type="hidden" name="fechaNacEmpleado" value="${item.fechaNacEmpleado}" />
+                                <input type="hidden" name="telefonoEmpleado" value="${item.telefono}" />
+                                <input type="hidden" name="correo" value="${item.correo}" />
+                                <input type="hidden" name="ID_Cargo" value="${item.ID_Cargo}" />
+                                <input type="hidden" name="ID_Direccion" value="${item.ID_Direccion}" />
+                                <input type="submit" value="Eliminar" />
+                            </form>
+                        </td>
+
+                        </tr>
                 </c:forEach>
             </tbody>            
         </table>
-
-            <!-- Aquí se mostraría la lista de empleados obtenida del servidor -->
-        </div>
-
-        <button onclick="regresar()">Regresar</button>
-
-        <script>  
-            function mostrarAgregar(){
-                window.location.href = "/SistemaWeb?accion=RegistroEmpleados";
-            }
-
-            function mostrarListado() {
-                document.getElementById("formAgregar").style.display = "none";
-                document.getElementById("listadoEmpleados").style.display = "block";
-                // Aquí se puede realizar una petición al servidor para obtener y mostrar la lista de empleados
-            }
-
-            function regresar() {
-                window.history.back();
-            }
-        </script>
     </body>
 </html>
 
