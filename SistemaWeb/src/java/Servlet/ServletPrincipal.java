@@ -252,7 +252,7 @@ public class ServletPrincipal extends HttpServlet {
         } else if (accion.equals("PedidosProductos")) {
             request.getRequestDispatcher("PedidosProductos.jsp").forward(request, response);
             //REDIRECCION PARA JSP DE AGREGAR
-        } else if (accion.equals("RegistroEmpleados")) {
+        } else if (accion.equals("RegistrarEmpleado")) {
             if (request.getSession().getAttribute("exito") != null) {
                 request.setAttribute("exito", request.getSession().getAttribute("exito"));
                 request.getSession().removeAttribute("exito");
