@@ -4,55 +4,51 @@
     Author     : ernes
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Registro de Empleados</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Agregar Empleado</title>
     </head>
     <body>
-        <h1>Registro de Empleados</h1>
-        <form method="post" action="/SistemaWeb/ServletPrincipal?accion=Login" id="formulario">
-            <div class="form-group">
-                <label for="nombres">Nombres:</label>
-                <input type="text" id="nombre" name="tfNombresEmpleado" required>
-            </div>
-            <div class="form-group">
-                <label for="apellidos">Apellidos:</label>
-                <input type="text" id="nombre" name="tfApellidosEmpleado" required>
-            </div>
-            <div class="form-group">
-                <label for="fechaNac">Fecha de Nacimiento:</label>
-                <input type="date" id="fechaNac" name="tfFechaNac" required>
-            </div>
-            <div class="form-group">
-                <label for="dui">DUI:</label>
-                <input type="text" id="dui" name="tfDui" required>
-            </div>
-            <div class="form-group">
-                <label for="telefono">Telefono:</label>
-                <input type="number" id="telefono" name="tfTelefono" required>
-            </div>
-            <div class="form-group">
-                <label for="isss">ISSS:</label>
-                <input type="text" id="isss" name="tfIsss" required>
-            </div>
-            <div class="form-group">
-                <label for="telefono">Correo:</label>
-                <input type="email" id="correo" name="tfCorreo" required>
-            </div>
-            <div class="form-group">
-                <input type="submit" name="btGuardar" value="GUARDAR">
-                <input type="reset" name="btLimpiar" value="LIMPIAR">
-            </div>
+        <c:if test="${exito!=null}">
+            <c:if test="${exito}">
+                <p><strong style="color: darkgreen;">La información se guardó correctamente</strong></p>
+            </c:if>
+            <c:if test="${!exito}">
+                <p><strong style="color: red;">No se guardó la información</strong></p>
+            </c:if>
+        </c:if>   
+        <h1>Agregar nuevo empleado</h1>
+
+        <form method="POST" action="/SistemaWeb/ServletPrincipal?accion=RegistroEmpleados">
+            <div>
+                <!-- El ID de los empleados es autoincrementable -->
+                <label>DUI:</label>
+                <input type="text" name="DUI_Empleado" id="DUI_Empleado" required /><br>
+                <label>Número de afiliado ISSS:</label>
+                <input type="text" name="ISSS_Empleado" id="ISSS_Empleado" required /><br>
+                <label>Nombres:</label>
+                <input type="text" name="nombresEmpleado" id="nombresEmpleado" required /><br>
+                <label>Apellidos:</label>
+                <input type="text" name="apellidosEmpleado" id="apellidosEmpleado" required /><br>
+                <label>Fecha de nacimiento:</label>
+                <input type="date" name="fechaNacEmpleado" id="fechaNacEmpleado" required /><br>
+                <label>Teléfono:</label>
+                <input type="text" name="telefonoEmpleado" id="telefonoEmpleado" required /><br>
+                <label>Correo:</label>
+                <input type="email" name="correo" id="correo" required /><br>
+                <label>ID Cargo:</label>
+                <input type="text" name="ID_Cargo" id="ID_Cargo" required /><br>
+                <label>ID Dirección:</label>
+                <input type="text" name="ID_Direccion" id="ID_Direccion" required /><br><br>                            
+                <input type="submit" value="Registrar" onclick="return confirm('¿Desea registrar el empleado?')" /><br><br>
+            </div><br>
+            <div>
+                <a href="/SistemaWeb/?accion=GestionEmpleados">Regresar</a>
+            </div>            
         </form>
-        <button onclick="regresar()">Regresar</button>
-        <script>  
-        function regresar(){
-            window.history.back();
-        }
-        </script>
     </body>
 </html>

@@ -107,6 +107,48 @@ public class ServletPrincipal extends HttpServlet {
             ex.printStackTrace();
         }
     }
+    
+     //Funciones de escritura en tablas (INSERT)
+    public void agregarEmpleado(HttpServletRequest request, HttpServletResponse response) {
+        //CAPTURA DE VARIABLES
+        //El ID de los empleados es autoincrementable
+        String DUI_Empleado = request.getParameter("DUI_Empleado");
+        String ISSS_Empleado = request.getParameter("ISSS_Empleado");
+        String nombresEmpleado = request.getParameter("nombresEmpleado");
+        String apellidosEmpleado = request.getParameter("apellidosEmpleado");
+        String fechaNacEmpleado = request.getParameter("fechaNacEmpleado");
+        String telefonoEmpleado = request.getParameter("telefonoEmpleado");
+        String correo = request.getParameter("correo");
+        String ID_Cargo = request.getParameter("ID_Cargo");
+        String ID_Direccion = request.getParameter("ID_Direccion");
+
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            try (Connection conn = DriverManager.getConnection(url)) {
+                request.setAttribute("mensaje_conexion", "Ok!");
+                String sql = "insert into Empleados values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, DUI_Empleado);
+                pstmt.setString(2, ISSS_Empleado);
+                pstmt.setString(3, nombresEmpleado);
+                pstmt.setString(4, apellidosEmpleado);
+                pstmt.setString(5, fechaNacEmpleado);
+                pstmt.setString(6, telefonoEmpleado);
+                pstmt.setString(7, correo);
+                pstmt.setString(8, ID_Cargo);
+                pstmt.setString(9, ID_Direccion);
+                int registros = pstmt.executeUpdate();
+                if (registros > 0) {
+                    request.getSession().setAttribute("exito", true);
+                } else {
+                    request.getSession().setAttribute("exito", false);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            request.getSession().setAttribute("exito", false);
+            ex.printStackTrace();
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -144,6 +186,13 @@ public class ServletPrincipal extends HttpServlet {
             request.getRequestDispatcher("/GestionClientes.jsp").forward(request, response);
         } else if (accion.equals("PedidosProductos")) {
             request.getRequestDispatcher("/PedidosProductos.jsp").forward(request, response);
+            //REDIRECCION PARA JSP DE AGREGAR
+        } else if (accion.equals("RegistroEmpleados")) {
+            if (request.getSession().getAttribute("exito") != null) {
+                request.setAttribute("exito", request.getSession().getAttribute("exito"));
+                request.getSession().removeAttribute("exito");
+            }
+            request.getRequestDispatcher("/RegistroEmpleados.jsp").forward(request, response);
         }
 
     }
@@ -194,6 +243,14 @@ public class ServletPrincipal extends HttpServlet {
                     print.println("</html>");
                 }
             }
+        }
+        
+         //CAPTURA DE DATOS ENVIADOS POR POST
+        if (accion.equals("RegistroEmpleados")) {
+            //LOS DATOS SE LE PASAN POR PARAMETRO A LA FUNCION
+            agregarEmpleado(request, response);
+            //REDIRIGE NUEVAMENTE A LA VISTA DE AGREGAR EMPLEADO
+            response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=RegistroEmpleados");
         }
     }
 

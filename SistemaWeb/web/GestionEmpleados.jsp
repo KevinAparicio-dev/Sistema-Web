@@ -17,6 +17,8 @@
     </head>
     <body>
         <h1>Gestión de Empleados</h1>
+        <h2>Listado de Empleados</h2>
+        <h3>Conexion: ${mensaje_conexion}</h3>
 
         <!-- Botones de acción -->
         <button onclick="mostrarAgregar()">Agregar Empleado</button>
