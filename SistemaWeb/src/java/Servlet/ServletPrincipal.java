@@ -4,6 +4,7 @@
  */
 package Servlet;
 
+import Models.ViewModelCargos;
 import Models.ViewModelDirecciones;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -205,10 +206,36 @@ public class ServletPrincipal extends HttpServlet {
         }
     }
     
+    
+     public void mostrarCargos(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            try (Connection conn = DriverManager.getConnection(url)) {
+                request.setAttribute("mensaje_conexion", "Ok!");
+                String sqlQuery = "select * from Cargos";
+                PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
+                ResultSet rs = pstmt.executeQuery();
+                ArrayList<ViewModelCargos> listaCargos = new ArrayList<>();
+                while (rs.next()) {
+                    ViewModelCargos cargo = new ViewModelCargos();
+                    cargo.setID_Cargo(rs.getInt("ID_Cargo"));
+                    cargo.setCargo(rs.getString("cargo"));
+                    listaCargos.add(cargo);
+                }
+                request.setAttribute("listaCargos", listaCargos);
+
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            request.setAttribute("mensaje_conexion", ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
     public void agregarCargo(HttpServletRequest request, HttpServletResponse response) {
         //CAPTURA DE VARIABLES
         //El ID de los cargos es autoincrementable
-        String cargo = request.getParameter("cargo");
+        String cargo = request.getParameter("Cargo");
 
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -229,6 +256,9 @@ public class ServletPrincipal extends HttpServlet {
             ex.printStackTrace();
         }
     }
+    
+    
+
     
      public void agregarDireccion(HttpServletRequest request, HttpServletResponse response) {
         //CAPTURA DE VARIABLES
@@ -331,6 +361,11 @@ public class ServletPrincipal extends HttpServlet {
             ex.printStackTrace();
         }
     }
+      
+      
+      
+      
+ 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

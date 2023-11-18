@@ -42,14 +42,20 @@
                 <input type="text" name="telefono" id="telefonoEmpleado" required /><br>
                 <label>Correo:</label>
                 <input type="email" name="correo" id="correo" required /><br>
+                
+                
+                
                 <label>Cargo:</label>
                 <select name="ID_Cargo" id="ID_Cargo" required>
                     <option value="-1" selected>Seleccione una opción</option>
-                    <c:forEach var="item" items="${listaCargos}">                       
-                        <option value="${item.ID_Cargo}">${item.cargo}</option>                        
+                    <c:forEach var="item" items="${listaCargos}">
+                        <option value="${item.ID_Cargo}">
+                            ${item.cargpo}
+                        </option>
                     </c:forEach>
                 </select>
                 <button type="button" onclick="agregarCargo()">Nuevo cargo</button><br>
+                
                 <label>Dirección:</label>
                 <select name="ID_Direccion" id="ID_Direccion" required>
                     <option value="-1" selected>Seleccione una opción</option>
@@ -58,8 +64,11 @@
                             ${item.linea1}, ${item.linea2}, ${item.ID_Distrito}, ${item.codigoPostal}
                         </option>
                     </c:forEach>
-                </select>
+                </select>                              
                 <button type="button" onclick="agregarDireccion()">Pre-registrar dirección</button>
+                
+                
+                
                 <br>
                 <input type="submit" value="Registrar" onclick="return confirm('¿Desea registrar el empleado?')" />
                 <input type="button" value="Limpiar" onclick="limpiarFormulario()" />
