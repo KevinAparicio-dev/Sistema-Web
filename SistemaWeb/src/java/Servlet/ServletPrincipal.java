@@ -232,6 +232,7 @@ public class ServletPrincipal extends HttpServlet {
         }
     }
 
+
     public void agregarCargo(HttpServletRequest request, HttpServletResponse response) {
         //CAPTURA DE VARIABLES
         //El ID de los cargos es autoincrementable
@@ -257,8 +258,6 @@ public class ServletPrincipal extends HttpServlet {
         }
     }
     
-    
-
     
      public void agregarDireccion(HttpServletRequest request, HttpServletResponse response) {
         //CAPTURA DE VARIABLES
@@ -403,11 +402,12 @@ public class ServletPrincipal extends HttpServlet {
             request.getRequestDispatcher("PedidosProductos.jsp").forward(request, response);
             //REDIRECCION PARA JSP DE AGREGAR
         } else if (accion.equals("RegistroEmpleados")) {
-            mostrarDirecciones(request, response);  // Agrega esta línea para cargar la lista de direcciones
+            mostrarCargos(request, response);
+            mostrarDirecciones(request, response);
             if (request.getSession().getAttribute("exito") != null) {
-            request.setAttribute("exito", request.getSession().getAttribute("exito"));
-            request.getSession().removeAttribute("exito");
-        }
+                request.setAttribute("exito", request.getSession().getAttribute("exito"));
+                request.getSession().removeAttribute("exito");
+            }
         request.getRequestDispatcher("RegistroEmpleados.jsp").forward(request, response);
         } else if (accion.equals("AgregarDireccion")) {
             mostrarDirecciones(request, response);
@@ -416,8 +416,7 @@ public class ServletPrincipal extends HttpServlet {
                 request.getSession().removeAttribute("exito");
             }
             request.getRequestDispatcher("AgregarDireccion.jsp").forward(request, response);
-
-    }
+         }
     }
 
     /**
@@ -473,7 +472,7 @@ public class ServletPrincipal extends HttpServlet {
             //LOS DATOS SE LE PASAN POR PARAMETRO A LA FUNCION
             agregarEmpleado(request, response);
             //REDIRIGE NUEVAMENTE A LA VISTA DE AGREGAR EMPLEADO
-            response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=RegistroEmpleado");
+            response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=RegistroEmpleados");
         } else if (accion.equals("ModificarEmpleado")) {
             modificarEmpleado(request, response);
             response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=GestionEmpleados");

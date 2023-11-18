@@ -24,7 +24,7 @@
         </c:if>   
         <h1>Agregar nuevo empleado</h1>
             
-        <form method="POST" action="/SistemaWeb/ServletPrincipal?accion=RegistroEmpleados">
+        <form method="POST" action="/SistemaWeb/ServletPrincipal?accion=RegistroEmpleado">
 
 
                 <!-- El ID de los empleados es autoincrementable -->
@@ -39,22 +39,20 @@
                 <label>Fecha de nacimiento:</label>
                 <input type="date" name="fechaNacEmpleado" id="fechaNacEmpleado" required /><br>
                 <label>Teléfono:</label>
-                <input type="text" name="telefono" id="telefonoEmpleado" required /><br>
+                <input type="text" name="telefono" id="telefono" required /><br>
                 <label>Correo:</label>
                 <input type="email" name="correo" id="correo" required /><br>
-                
-                
                 
                 <label>Cargo:</label>
                 <select name="ID_Cargo" id="ID_Cargo" required>
                     <option value="-1" selected>Seleccione una opción</option>
                     <c:forEach var="item" items="${listaCargos}">
                         <option value="${item.ID_Cargo}">
-                            ${item.cargpo}
+                            ${item.cargo}
                         </option>
                     </c:forEach>
-                </select>
-                <button type="button" onclick="agregarCargo()">Nuevo cargo</button><br>
+                </select>          
+                <button type="button" onclick="agregarCargo()">Nuevo cargo</button><br>   
                 
                 <label>Dirección:</label>
                 <select name="ID_Direccion" id="ID_Direccion" required>
