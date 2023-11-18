@@ -4,6 +4,7 @@
  */
 package Servlet;
 
+import Models.ViewModelDirecciones;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -25,7 +26,7 @@ public class ServletPrincipal extends HttpServlet {
     private final String usuario = "sa";
     private final String contrasenia = "root";
     private final String servidor = "localhost:1433";
-    private final String bd = "Super";
+    private final String bd = "Supermercado";
 
     String url = "jdbc:sqlserver://"
             + servidor
@@ -66,7 +67,7 @@ public class ServletPrincipal extends HttpServlet {
 
             try (Connection conn = DriverManager.getConnection(url)) {
                 request.setAttribute("mensaje_conexion", "Ok!");
-                String sqlQuery = "select * from Empleados";
+                String sqlQuery = "select * from VistaEmpleados";
                 PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
                 ResultSet rs = pstmt.executeQuery();
                 ArrayList<ViewModelEmpleados> listaEmpleados = new ArrayList<>();
@@ -81,32 +82,19 @@ public class ServletPrincipal extends HttpServlet {
                     empleado.setTelefono(rs.getString("telefono"));
                     empleado.setCorreo(rs.getString("correo"));
                     empleado.setID_Cargo(rs.getInt("ID_Cargo"));
+                    empleado.setCargo(rs.getString("cargo"));
                     empleado.setID_Direccion(rs.getInt("ID_Direccion"));
+                    empleado.setDireccionCompleta(rs.getString("direccionCompleta"));
                     listaEmpleados.add(empleado);
                 }
-
-                for (ViewModelEmpleados empleado : listaEmpleados) {
-                    System.out.println("ID_Empleado: " + empleado.getID_Empleado());
-                    System.out.println("DUI_Empleado: " + empleado.getDUI_Empleado());
-                    System.out.println("ISSS_Empleado: " + empleado.getISSS_Empleado());
-                    System.out.println("Nombres Empleado: " + empleado.getNombresEmpleado());
-                    System.out.println("Apellidos Empleado: " + empleado.getApellidosEmpleado());
-                    System.out.println("Fecha Nacimiento: " + empleado.getFechaNacEmpleado());
-                    System.out.println("Telefono: " + empleado.getTelefono());
-                    System.out.println("Correo: " + empleado.getCorreo());
-                    System.out.println("ID_Cargo: " + empleado.getID_Cargo());
-                    System.out.println("ID_Direccion: " + empleado.getID_Direccion());
-                    System.out.println("------------");
-                }
-
                 request.setAttribute("listaEmpleados", listaEmpleados);
-
             }
         } catch (SQLException | ClassNotFoundException ex) {
             request.setAttribute("mensaje_conexion", ex.getMessage());
             ex.printStackTrace();
         }
     }
+
     
      //Funciones de escritura en tablas (INSERT)
     public void agregarEmpleado(HttpServletRequest request, HttpServletResponse response) {
@@ -117,7 +105,7 @@ public class ServletPrincipal extends HttpServlet {
         String nombresEmpleado = request.getParameter("nombresEmpleado");
         String apellidosEmpleado = request.getParameter("apellidosEmpleado");
         String fechaNacEmpleado = request.getParameter("fechaNacEmpleado");
-        String telefonoEmpleado = request.getParameter("telefonoEmpleado");
+        String telefonoEmpleado = request.getParameter("telefono");
         String correo = request.getParameter("correo");
         String ID_Cargo = request.getParameter("ID_Cargo");
         String ID_Direccion = request.getParameter("ID_Direccion");
@@ -216,6 +204,133 @@ public class ServletPrincipal extends HttpServlet {
             ex.printStackTrace();
         }
     }
+    
+    public void agregarCargo(HttpServletRequest request, HttpServletResponse response) {
+        //CAPTURA DE VARIABLES
+        //El ID de los cargos es autoincrementable
+        String cargo = request.getParameter("cargo");
+
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            try (Connection conn = DriverManager.getConnection(url)) {
+                request.setAttribute("mensaje_conexion", "Ok!");
+                String sql = "insert into Cargos values (?)";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, cargo);
+                int registros = pstmt.executeUpdate();
+                if (registros > 0) {
+                    request.getSession().setAttribute("exito", true);
+                } else {
+                    request.getSession().setAttribute("exito", false);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            request.getSession().setAttribute("exito", false);
+            ex.printStackTrace();
+        }
+    }
+    
+     public void agregarDireccion(HttpServletRequest request, HttpServletResponse response) {
+        //CAPTURA DE VARIABLES
+        //El ID de los empleados es autoincrementable
+        String linea1 = request.getParameter("linea1");
+        String linea2 = request.getParameter("linea2");
+        String ID_Distrito = request.getParameter("ID_Distrito");
+        String codigoPostal = request.getParameter("codigoPostal");
+
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            try (Connection conn = DriverManager.getConnection(url)) {
+                request.setAttribute("mensaje_conexion", "Ok!");
+                String sql = "insert into Direcciones values (?, ?, ?, ?)";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, linea1);
+                pstmt.setString(2, linea2);
+                pstmt.setString(3, ID_Distrito);
+                pstmt.setString(4, codigoPostal);
+                int registros = pstmt.executeUpdate();
+                if (registros > 0) {
+                    request.getSession().setAttribute("exito", true);
+                } else {
+                    request.getSession().setAttribute("exito", false);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            request.getSession().setAttribute("exito", false);
+            ex.printStackTrace();
+        }
+    }
+     
+      public void mostrarDirecciones(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            try (Connection conn = DriverManager.getConnection(url)) {
+                 request.setAttribute("mensaje_conexion", "Ok!");
+                //Lista de Departamentos
+                String sqlQueryDepartamentos = "select * from Departamentos";
+                PreparedStatement pstmtDep = conn.prepareStatement(sqlQueryDepartamentos);
+                ResultSet rsDep = pstmtDep.executeQuery();
+                ArrayList<ViewModelDirecciones> listaDepartamentos = new ArrayList<>();
+                while (rsDep.next()) {
+                    ViewModelDirecciones departamento = new ViewModelDirecciones();
+                    departamento.setID_Departamento(rsDep.getString("ID_Departamento"));
+                    departamento.setDepartamento(rsDep.getString("Departamento"));
+                    departamento.setPais(rsDep.getString("Pais"));
+                    listaDepartamentos.add(departamento);
+                }
+                request.setAttribute("listaDepartamentos", listaDepartamentos);
+
+                //Lista de Municipios
+                String sqlQueryMunicipios = "select * from Municipios";
+                PreparedStatement pstmtMun = conn.prepareStatement(sqlQueryMunicipios);
+                ResultSet rsMun = pstmtMun.executeQuery();
+                ArrayList<ViewModelDirecciones> listaMunicipios = new ArrayList<>();
+                while (rsMun.next()) {
+                    ViewModelDirecciones municipio = new ViewModelDirecciones();
+                    municipio.setID_Municipio(rsMun.getString("ID_Municipio"));
+                    municipio.setMunicipio(rsMun.getString("Municipio"));
+                    municipio.setID_Departamento(rsMun.getString("ID_Departamento"));
+                    listaMunicipios.add(municipio);
+                }
+                request.setAttribute("listaMunicipios", listaMunicipios);
+
+                //Lista de Distritos
+                String sqlQueryDistritos = "select * from Distritos";
+                PreparedStatement pstmtDis = conn.prepareStatement(sqlQueryDistritos);
+                ResultSet rsDis = pstmtDis.executeQuery();
+                ArrayList<ViewModelDirecciones> listaDistritos = new ArrayList<>();
+                while (rsDis.next()) {
+                    ViewModelDirecciones distrito = new ViewModelDirecciones();
+                    distrito.setID_Distrito(rsDis.getString("ID_Distrito"));
+                    distrito.setDistrito(rsDis.getString("Distrito"));
+                    distrito.setID_Municipio(rsDis.getString("ID_Municipio"));
+                    listaDistritos.add(distrito);
+                }
+                request.setAttribute("listaDistritos", listaDistritos);
+
+                //Lista de Direcciones
+                String sqlQueryDirecciones = "select * from Direcciones";
+                PreparedStatement pstmtDir = conn.prepareStatement(sqlQueryDirecciones);
+                ResultSet rsDir = pstmtDir.executeQuery();
+                ArrayList<ViewModelDirecciones> listaDirecciones = new ArrayList<>();
+                while (rsDir.next()) {
+                    ViewModelDirecciones direccion = new ViewModelDirecciones();
+                    direccion.setID_Direccion(rsDir.getInt("ID_Direccion"));
+                    direccion.setLinea1(rsDir.getString("linea1"));
+                    direccion.setLinea2(rsDir.getString("linea2"));
+                    direccion.setID_Distrito(rsDir.getString("ID_Distrito"));
+                    direccion.setCodigoPostal(rsDir.getString("CodigoPostal"));
+                    listaDirecciones.add(direccion);
+                }
+                request.setAttribute("listaDirecciones", listaDirecciones);
+
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            request.setAttribute("mensaje_conexion", ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -252,14 +367,22 @@ public class ServletPrincipal extends HttpServlet {
         } else if (accion.equals("PedidosProductos")) {
             request.getRequestDispatcher("PedidosProductos.jsp").forward(request, response);
             //REDIRECCION PARA JSP DE AGREGAR
-        } else if (accion.equals("RegistrarEmpleado")) {
+        } else if (accion.equals("RegistroEmpleados")) {
+            mostrarDirecciones(request, response);  // Agrega esta línea para cargar la lista de direcciones
+            if (request.getSession().getAttribute("exito") != null) {
+            request.setAttribute("exito", request.getSession().getAttribute("exito"));
+            request.getSession().removeAttribute("exito");
+        }
+        request.getRequestDispatcher("RegistroEmpleados.jsp").forward(request, response);
+        } else if (accion.equals("AgregarDireccion")) {
+            mostrarDirecciones(request, response);
             if (request.getSession().getAttribute("exito") != null) {
                 request.setAttribute("exito", request.getSession().getAttribute("exito"));
                 request.getSession().removeAttribute("exito");
             }
-            request.getRequestDispatcher("RegistroEmpleados.jsp").forward(request, response);
-        }
+            request.getRequestDispatcher("AgregarDireccion.jsp").forward(request, response);
 
+    }
     }
 
     /**
@@ -311,17 +434,23 @@ public class ServletPrincipal extends HttpServlet {
         }
         
         //CAPTURA DE DATOS ENVIADOS POR POST
-        if (accion.equals("RegistrarEmpleado")) {
+        if (accion.equals("RegistroEmpleado")) {
             //LOS DATOS SE LE PASAN POR PARAMETRO A LA FUNCION
             agregarEmpleado(request, response);
             //REDIRIGE NUEVAMENTE A LA VISTA DE AGREGAR EMPLEADO
-            response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=RegistrarEmpleado");
+            response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=RegistroEmpleado");
         } else if (accion.equals("ModificarEmpleado")) {
             modificarEmpleado(request, response);
             response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=GestionEmpleados");
         } else if (accion.equals("EliminarEmpleado")) {
             eliminarEmpleado(request, response);
             response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=GestionEmpleados");
+        } else if (accion.equals("AgregarCargo")) {
+            agregarCargo(request, response);
+            response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=AgregarCargo");
+        } else if (accion.equals("AgregarDireccion")) {
+            agregarDireccion(request, response);
+            response.sendRedirect(request.getContextPath() + "/ServletPrincipal?accion=AgregarDireccion");
         }
     }
     

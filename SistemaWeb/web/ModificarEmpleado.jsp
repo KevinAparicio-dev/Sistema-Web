@@ -7,6 +7,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -29,7 +30,7 @@
                 <label>Fecha de nacimiento:</label>
                 <input type="date" name="fechaNacEmpleado" id="fechaNacEmpleado" value="${param.fechaNacEmpleado}" required /><br>
                 <label>Teléfono:</label>
-                <input type="text" name="telefono" id="telefono" value="${param.telefonoEmpleado}" required /><br>
+                <input type="text" name="telefonoEmpleado" id="telefonoEmpleado" value="${param.telefono}" required /><br>
                 <label>Correo:</label>
                 <input type="email" name="correo" id="correo" value="${param.correo}" required /><br>
                 <label>ID Cargo:</label>
@@ -39,7 +40,7 @@
                 <input type="submit" value="Modificar" onclick="return confirm('¿Desea modificar el empleado?')" /><br><br> 
             </div>
             <div>
-                <a href="/SistemaWeb/?accion=GestionarEmpleados">Regresar</a><br><br>
+                <a href="/SistemaWeb/?accion=GestionEmpleados">Regresar</a><br><br>
             </div>             
         </form>
     </body>

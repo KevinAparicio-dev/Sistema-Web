@@ -22,7 +22,9 @@ public class ViewModelEmpleados {
     private String telefono;
     private String correo;
     private int ID_Cargo;
+    private String cargo;
     private int ID_Direccion;
+    private String direccionCompleta;
     
     /**
      * @return the ID_Empleado
@@ -164,6 +166,20 @@ public class ViewModelEmpleados {
         this.ID_Direccion = ID_Direccion;
     }
 
-  
-    
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public String getDireccionCompleta() {
+        return direccionCompleta;
+    }
+
+    public void setDireccionCompleta(String direccionCompleta) {
+        this.direccionCompleta = direccionCompleta;
+    }
+
 }

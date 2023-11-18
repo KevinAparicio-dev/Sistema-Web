@@ -23,10 +23,10 @@
                 <label>Nombres: ${param.nombresEmpleado}</label><br>
                 <label>Apellidos: ${param.apellidosEmpleado}</label><br>
                 <label>Fecha de nacimiento: ${param.fechaNacEmpleado}</label><br>
-                <label>Teléfono: ${param.telefonoEmpleado}</label><br>
+                <label>Teléfono: ${param.telefono}</label><br>
                 <label>Correo: ${param.correo}</label><br>
-                <label>ID Cargo: ${param.ID_Cargo}</label><br>
-                <label>ID Dirección: ${param.ID_Direccion}</label>   
+                <label>Cargo: ${param.cargo}</label><br>
+                <label>Dirección: ${param.direccionCompleta}</label>   
                 <input type="hidden" name="ID_Empleado" id="ID_Empleado" value="${param.ID_Empleado}" /><br><br>
                 <input type="submit" value="Eliminar" onclick="return confirm('¿Desea eliminar el empleado?')" /><br><br>
             </div>
