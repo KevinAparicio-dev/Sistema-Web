@@ -6,6 +6,7 @@ package Servlet;
 
 import Models.ViewModelCargos;
 import Models.ViewModelDirecciones;
+import Models.ViewModelProductos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -96,8 +97,8 @@ public class ServletPrincipal extends HttpServlet {
         }
     }
 
-    
      //Funciones de escritura en tablas (INSERT)
+    
     public void agregarEmpleado(HttpServletRequest request, HttpServletResponse response) {
         //CAPTURA DE VARIABLES
         //El ID de los empleados es autoincrementable
@@ -135,6 +136,69 @@ public class ServletPrincipal extends HttpServlet {
             }
         } catch (SQLException | ClassNotFoundException ex) {
             request.getSession().setAttribute("exito", false);
+            ex.printStackTrace();
+        }
+    }
+    
+    public void agregarProducto(HttpServletRequest request, HttpServletResponse response) {
+        //CAPTURA DE VARIABLES
+        //El ID de los productos es autoincrementable
+        String Nombre_Producto = request.getParameter("Nombre_Producto");
+        String Descripcion = request.getParameter("Descripcion");
+        String Precio_Unitario = request.getParameter("Precio_Unitario");
+        String Existencia = request.getParameter("Existencia");
+        String ID_Direccion = request.getParameter("ID_Direccion");
+
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            try (Connection conn = DriverManager.getConnection(url)) {
+                request.setAttribute("mensaje_conexion", "Ok!");
+                String sql = "insert into Productos values (?, ?, ?, ?,)";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, Nombre_Producto);
+                pstmt.setString(2, Descripcion);
+                pstmt.setString(3, Precio_Unitario);
+                pstmt.setString(4, Existencia);                
+                pstmt.setString(5, ID_Direccion);
+                int registros = pstmt.executeUpdate();
+                if (registros > 0) {
+                    request.getSession().setAttribute("exito", true);
+                } else {
+                    request.getSession().setAttribute("exito", false);
+                }
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            request.getSession().setAttribute("exito", false);
+            ex.printStackTrace();
+        }
+    }
+    
+        public void mostrarProductos(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            try (Connection conn = DriverManager.getConnection(url)) {
+                request.setAttribute("mensaje_conexion", "Ok!");
+                String sqlQuery = "select * from VistaDetalleProductos";
+                PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
+                ResultSet rs = pstmt.executeQuery();
+                ArrayList<ViewModelProductos> listaProductos = new ArrayList<>();
+                while (rs.next()) {
+                        ViewModelProductos producto = new ViewModelProductos();
+                        producto.setID_Producto(rs.getInt("ID_Producto"));
+                        producto.setNombre_Producto(rs.getString("Nombre_Producto"));
+                        producto.setDescripcion(rs.getString("Descripcion"));
+                        producto.setPrecio_Unitario(rs.getFloat("Precio_Unitario"));
+                        producto.setExistencia(rs.getInt("Existencia"));
+                        producto.setID_Proveedor(rs.getInt("ID_Proveedor"));
+                        producto.setNombre_Proveedor(rs.getString("Nombre_Proveedor"));
+                        producto.setTelefono_Proveedor(rs.getString("Telefono_Proveedor"));
+                        listaProductos.add(producto); 
+                }
+                request.setAttribute("listaProductos", listaProductos);
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            request.setAttribute("mensaje_conexion", ex.getMessage());
             ex.printStackTrace();
         }
     }
@@ -206,7 +270,6 @@ public class ServletPrincipal extends HttpServlet {
         }
     }
     
-    
      public void mostrarCargos(HttpServletRequest request, HttpServletResponse response) {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -232,7 +295,6 @@ public class ServletPrincipal extends HttpServlet {
         }
     }
 
-
     public void agregarCargo(HttpServletRequest request, HttpServletResponse response) {
         //CAPTURA DE VARIABLES
         //El ID de los cargos es autoincrementable
@@ -257,7 +319,6 @@ public class ServletPrincipal extends HttpServlet {
             ex.printStackTrace();
         }
     }
-    
     
      public void agregarDireccion(HttpServletRequest request, HttpServletResponse response) {
         //CAPTURA DE VARIABLES
