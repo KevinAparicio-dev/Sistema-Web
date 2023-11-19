@@ -1,4 +1,4 @@
-<%-- 
+        <%-- 
     Document   : GestionEmpleados
     Created on : 13 oct 2023, 21:36:58
     Author     : Kevin Aparicio
@@ -140,7 +140,7 @@
         </table>      
     </body>
     <script>
-        function abrirPopup() {
+        function abrirPopu p() {
             var popup = document.getElementById('popup');
             var overlay = document.getElementById('overlay');
 
