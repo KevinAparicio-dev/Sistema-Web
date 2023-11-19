@@ -187,13 +187,13 @@ public class ServletPrincipal extends HttpServlet {
                 while (rs.next()) {
                         ViewModelProductos producto = new ViewModelProductos();
                         producto.setID_Producto(rs.getInt("ID_Producto"));
-                        producto.setNombre_Producto(rs.getString("Nombre_Producto"));
+                        producto.setNombreProducto(rs.getString("Nombre_Producto"));
                         producto.setDescripcion(rs.getString("Descripcion"));
-                        producto.setPrecio_Unitario(rs.getFloat("Precio_Unitario"));
+                        producto.setPrecioUnitario(rs.getFloat("Precio_Unitario"));
                         producto.setExistencia(rs.getInt("Existencia"));
                         producto.setID_Proveedor(rs.getInt("ID_Proveedor"));
-                        producto.setNombre_Proveedor(rs.getString("Nombre_Proveedor"));
-                        producto.setTelefono_Proveedor(rs.getString("Telefono_Proveedor"));
+                        producto.setNombreProveedor(rs.getString("Nombre_Proveedor"));
+                        producto.setTelefonoProveedor(rs.getString("Telefono_Proveedor"));
                         listaProductos.add(producto); 
                 }
                 request.setAttribute("listaProductos", listaProductos);
@@ -478,8 +478,6 @@ public class ServletPrincipal extends HttpServlet {
             request.getRequestDispatcher("GestionEmpleados.jsp").forward(request, response);
         } else if (accion.equals("RegistroProductos")) {
             request.getRequestDispatcher("RegistroProductos.jsp").forward(request, response);
-        } else if (accion.equals("GestionProductos")) {
-            request.getRequestDispatcher("GestionProductos.jsp").forward(request, response);
         } else if (accion.equals("Ventas")) {
             request.getRequestDispatcher("Ventas.jsp").forward(request, response);
         } else if (accion.equals("Clientes")) {
@@ -505,7 +503,14 @@ public class ServletPrincipal extends HttpServlet {
                 request.getSession().removeAttribute("exito");
             }
             request.getRequestDispatcher("AgregarDireccion.jsp").forward(request, response);
-         }
+        } else if (accion.equals("GestionProductos")){
+            mostrarProductos(request, response);
+            if (request.getSession().getAttribute("exito") != null) {
+                request.setAttribute("exito", request.getSession().getAttribute("exito"));
+                request.getSession().removeAttribute("exito");
+            }
+            request.getRequestDispatcher("GestionProductos.jsp").forward(request, response);
+        }
     }
 
     /**

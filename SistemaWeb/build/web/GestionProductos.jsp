@@ -58,13 +58,13 @@
                     <tr>    
                         <!-- Mostrar -->
                         <td><c:out value="${item.ID_Producto}" /></td>
-                        <td><c:out value="${item.Nombre_Producto}" /></td>
-                        <td><c:out value="${item.Descripcion}" /></td>
-                        <td><c:out value="${item.Precio_Unitario}" /></td>
-                        <td><c:out value="${item.Existencia}" /></td>
+                        <td><c:out value="${item.nombreProducto}" /></td>
+                        <td><c:out value="${item.descripcion}" /></td>
+                        <td><c:out value="${item.precioUnitario}" /></td>
+                        <td><c:out value="${item.existencia}" /></td>
                         <td><c:out value="${item.ID_Proveedor}" /></td>
-                        <td><c:out value="${item.Nombre_Proveedor}" /></td>
-                        <td><c:out value="${item.Telefono_Proveedor}" /></td>
+                        <td><c:out value="${item.nombreProveedor}" /></td>
+                        <td><c:out value="${item.telefonoProveedor}" /></td>
                     </tr>
                 </c:forEach>
             </tbody>            

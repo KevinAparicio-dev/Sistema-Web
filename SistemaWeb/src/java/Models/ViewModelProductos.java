@@ -11,16 +11,14 @@ import java.util.Date;
  * @author Kevin Aparicio
  */
 public class ViewModelProductos {
-    
     private int ID_Producto;
-    private String Nombre_Producto;
+    private String nombreProducto;
     private String descripcion;
-    private float Precio_Unitario;
+    private float precioUnitario;
     private int existencia;
     private int ID_Proveedor;
-    private String Nombre_Proveedor;
-    private String Telefono_Proveedor;  
-
+    private String nombreProveedor;
+    private String telefonoProveedor;  
     public int getID_Producto() {
         return ID_Producto;
     }
@@ -29,12 +27,12 @@ public class ViewModelProductos {
         this.ID_Producto = ID_Producto;
     }
 
-    public String getNombre_Producto() {
-        return Nombre_Producto;
+    public String getNombreProducto() {
+        return nombreProducto;
     }
 
-    public void setNombre_Producto(String Nombre_Producto) {
-        this.Nombre_Producto = Nombre_Producto;
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
     public String getDescripcion() {
@@ -45,12 +43,12 @@ public class ViewModelProductos {
         this.descripcion = descripcion;
     }
 
-    public float getPrecio_Unitario() {
-        return Precio_Unitario;
+    public float getPrecioUnitario() {
+        return precioUnitario;
     }
 
-    public void setPrecio_Unitario(float Precio_Unitario) {
-        this.Precio_Unitario = Precio_Unitario;
+    public void setPrecioUnitario(float precioUnitario) {
+        this.precioUnitario = precioUnitario;
     }
 
     public int getExistencia() {
@@ -69,21 +67,24 @@ public class ViewModelProductos {
         this.ID_Proveedor = ID_Proveedor;
     }
 
-    public String getNombre_Proveedor() {
-        return Nombre_Proveedor;
+    public String getNombreProveedor() {
+        return nombreProveedor;
     }
 
-    public void setNombre_Proveedor(String Nombre_Proveedor) {
-        this.Nombre_Proveedor = Nombre_Proveedor;
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
     }
 
-    public String getTelefono_Proveedor() {
-        return Telefono_Proveedor;
+    public String getTelefonoProveedor() {
+        return telefonoProveedor;
     }
 
-    public void setTelefono_Proveedor(String Telefono_Proveedor) {
-        this.Telefono_Proveedor = Telefono_Proveedor;
+    public void setTelefonoProveedor(String telefonoProveedor) {
+        this.telefonoProveedor = telefonoProveedor;
     }
+    
+    
+
     
  
 }
