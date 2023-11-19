@@ -5,6 +5,7 @@
 package Servlet;
 
 import Models.ViewModelCargos;
+import Models.ViewModelClientes;
 import Models.ViewModelDirecciones;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -361,9 +362,35 @@ public class ServletPrincipal extends HttpServlet {
         }
     }
       
-      
-      
-      
+    public void mostrarClientes(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            try (Connection conn = DriverManager.getConnection(url)) {
+                request.setAttribute("mensaje_conexion", "Ok!");
+                String sqlQuery = "select * from VistaClientes";
+                PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
+                ResultSet rs = pstmt.executeQuery();
+                ArrayList<ViewModelClientes> listaClientes = new ArrayList<>();
+                while (rs.next()) {
+                    ViewModelClientes cliente = new ViewModelClientes();
+                    cliente.setID_Cliente(rs.getInt("ID_Cliente"));
+                    cliente.setNombresCliente(rs.getString("Nombres"));
+                    cliente.setApellidosCliente(rs.getString("Apellidos"));
+                    cliente.setDUI_Cliente(rs.getString("DUI"));
+                    cliente.setFechaNacCliente(rs.getDate("FechaNac"));
+                    cliente.setCorreo(rs.getString("Email"));
+                    cliente.setID_Direccion(rs.getInt("ID_Direccion"));
+                    cliente.setDireccionCompleta(rs.getString("direccionCompleta"));
+                    listaClientes.add(cliente);
+                }
+                request.setAttribute("listaClientes", listaClientes);
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            request.setAttribute("mensaje_conexion", ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -397,6 +424,7 @@ public class ServletPrincipal extends HttpServlet {
         } else if (accion.equals("Clientes")) {
             request.getRequestDispatcher("Clientes.jsp").forward(request, response);
         } else if (accion.equals("GestionClientes")) {
+            mostrarClientes(request, response);
             request.getRequestDispatcher("GestionClientes.jsp").forward(request, response);
         } else if (accion.equals("PedidosProductos")) {
             request.getRequestDispatcher("PedidosProductos.jsp").forward(request, response);
