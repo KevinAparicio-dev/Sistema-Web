@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Models.ViewModelEmpleados;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
